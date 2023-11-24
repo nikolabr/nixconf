@@ -48,19 +48,6 @@
     font.size = 8.0;
   };
 
-  nixpkgs.overlays = [
-    # Emacs overlay
-    (import (builtins.fetchTarball {
-      url =
-        "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-    }))
-
-    # Rust overlay
-    (import (builtins.fetchTarball
-      "https://github.com/oxalica/rust-overlay/archive/master.tar.gz"))
-  ];
-
-  nixpkgs.config.allowUnfree = true;
 
   services.emacs = {
     enable = true;
@@ -68,7 +55,7 @@
     client.enable = true;
 
     package = (pkgs.emacsWithPackagesFromUsePackage {
-      config = ~/dotemacs/init.el;
+      config = "./init.el";
       defaultInitFile = true;
       alwaysEnsure = true;
 
