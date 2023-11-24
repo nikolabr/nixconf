@@ -343,7 +343,7 @@
     hello
 
     # Graphical browsers / Clients
-    firefox
+    firefox-esr
     chromium
     thunderbird
 
