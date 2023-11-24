@@ -13,7 +13,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "23.05"; # Please read the comment before changing.
+  # home.stateVersion = "23.05"; # Please read the comment before changing.
 
   programs.bash.enable = true;
 
@@ -46,33 +46,6 @@
       };
     };
     font.size = 8.0;
-  };
-
-
-  services.emacs = {
-    enable = true;
-    defaultEditor = true;
-    client.enable = true;
-
-    package = (pkgs.emacsWithPackagesFromUsePackage {
-      config = "./init.el";
-      defaultInitFile = true;
-      alwaysEnsure = true;
-
-      package = pkgs.emacs-gtk;
-
-      # Optionally provide extra packages not in the configuration file.
-      extraEmacsPackages = epkgs: [
-        epkgs.use-package
-        epkgs.melpaPackages.nix-mode
-
-        #   (epkgs.callPackage ./stm32-emacs.nix {
-        #     inherit (pkgs) fetchFromGitHub;
-        #     inherit (epkgs) trivialBuild helm projectile s friendly-shell-command;
-        #   })
-      ];
-
-    });
   };
 
   services.polybar.enable = true;
@@ -420,7 +393,8 @@
     cmake
     openocd
     valgrind
-    jetbrains.clion
+    
+    # jetbrains.clion
 
     # Rust
     (rust-bin.stable.latest.default.override {
@@ -445,8 +419,6 @@
     qemu_full
 
     usbutils
-
-    cowsay
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
