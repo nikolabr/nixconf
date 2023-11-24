@@ -35,7 +35,6 @@
         "nikola" = home-manager.lib.homeManagerConfiguration {
           modules = [
             ./home.nix
-            ./emacs.nix
             { home.stateVersion = "23.05"; }
           ];
           inherit pkgs;
