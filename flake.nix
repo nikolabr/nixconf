@@ -1,11 +1,24 @@
 {
-  description = "A very basic flake";
+  description = "Home manager and system configurations";
 
-  outputs = { self, nixpkgs }: {
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-23.05";
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+    home-manager = {
+      url = github:nix-community/home-manager;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+  outputs = { self, nixpkgs, home-manager }: {
+    packages.x86_64-linux.default = home-manager.defaultPackage.x86_64-linux;
+    
+    homeConfigurations = {
+      "nikola" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { system = "x86_64-linux"; };
 
+        modules = [ ./home.nix ];
+      };
+    };
   };
 }
