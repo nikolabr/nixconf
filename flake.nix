@@ -28,24 +28,50 @@
           [ emacs-overlay.overlays.default rust-overlay.overlays.default ];
         config.allowUnfree = true;
       };
+
+      emacsWithPackages =
+        (pkgs.emacsPackagesFor pkgs.emacs-gtk).emacsWithPackages;
+
     in {
       packages.x86_64-linux.default = home-manager.defaultPackage.x86_64-linux;
 
       packages.x86_64-linux.custom-emacs =
-        (pkgs.emacsWithPackagesFromUsePackage {
-          config = ./init.el;
-          defaultInitFile = true;
-          alwaysEnsure = true;
+        (emacsWithPackages (epkgs:
+          (with epkgs;
+            [
+              color-theme-sanityinc-tomorrow
+              
+              nix-mode
+              rust-mode
+              
+              helm
+              helm-xref
+              
+              lsp-mode
+              helm-lsp
+              dap-mode
 
-          package = pkgs.emacs-gtk;
+              yasnippet
+              which-key
+              projectile
+              hydra
+              flycheck
+              company
+              avy
 
-          # Optionally provide extra packages not in the configuration file.
-          extraEmacsPackages = epkgs: [
-            epkgs.use-package
-            epkgs.melpaPackages.nix-mode
-          ];
-        });
+              magit
 
+              mozc
+              slime
+              pdf-tools
+
+              calfw
+              calfw-cal
+              calfw-org
+            ]
+          ))
+        );
+      
       homeConfigurations = {
         "nikola" = home-manager.lib.homeManagerConfiguration {
           modules = [
@@ -55,9 +81,11 @@
                 enable = true;
                 defaultEditor = true;
                 client.enable = true;
-
+                
                 package = self.packages.x86_64-linux.custom-emacs;
               };
+
+              home.file.".emacs".source = ./init.el;
             }
             { home.stateVersion = "23.05"; }
           ];
