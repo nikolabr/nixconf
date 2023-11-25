@@ -35,43 +35,39 @@
     in {
       packages.x86_64-linux.default = home-manager.defaultPackage.x86_64-linux;
 
-      packages.x86_64-linux.custom-emacs =
-        (emacsWithPackages (epkgs:
-          (with epkgs;
-            [
-              color-theme-sanityinc-tomorrow
-              
-              nix-mode
-              rust-mode
-              
-              helm
-              helm-xref
-              
-              lsp-mode
-              helm-lsp
-              dap-mode
+      packages.x86_64-linux.custom-emacs = (emacsWithPackages (epkgs:
+        (with epkgs; [
+          color-theme-sanityinc-tomorrow
 
-              yasnippet
-              which-key
-              projectile
-              hydra
-              flycheck
-              company
-              avy
+          nix-mode
+          rust-mode
 
-              magit
+          helm
+          helm-xref
 
-              mozc
-              slime
-              pdf-tools
+          lsp-mode
+          helm-lsp
+          dap-mode
 
-              calfw
-              calfw-cal
-              calfw-org
-            ]
-          ))
-        );
-      
+          yasnippet
+          which-key
+          projectile
+          hydra
+          flycheck
+          company
+          avy
+
+          magit
+
+          mozc
+          slime
+          pdf-tools
+
+          calfw
+          calfw-cal
+          calfw-org
+        ])));
+
       homeConfigurations = {
         "nikola" = home-manager.lib.homeManagerConfiguration {
           modules = [
@@ -81,7 +77,7 @@
                 enable = true;
                 defaultEditor = true;
                 client.enable = true;
-                
+
                 package = self.packages.x86_64-linux.custom-emacs;
               };
 
