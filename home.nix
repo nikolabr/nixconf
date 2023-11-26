@@ -411,7 +411,7 @@
     openocd
     valgrind
 
-    # jetbrains.clion
+    jetbrains.clion
 
     # Rust
     (rust-bin.stable.latest.default.override {
