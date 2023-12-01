@@ -6,8 +6,6 @@
 (desktop-save-mode 1)
 (electric-pair-mode 1)
 
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 (setq org-agenda-include-diary t)
 
@@ -56,10 +54,13 @@
 (require 'lsp-mode)
 
 (setq lsp-keymap-prefix "C-c l")
+(define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
 (setq lsp-idle-delay 0.1)
-(add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+
+(with-eval-after-load 'lsp-mode
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+
 (require 'dap-cpptools)
-(yas-global-mode)
 
 (require 'helm-lsp)
 
@@ -71,8 +72,10 @@
 (add-hook 'js-mode-hook 'lsp)
 
 (require 'yasnippet)
+(yas-global-mode)
 
 (require 'which-key)
+(which-key-mode)
 
 (require 'projectile)
 (projectile-mode)
@@ -116,6 +119,21 @@
 
 (require 'pdf-tools)
 (pdf-tools-install)
+
+(require 'sicp)
+
+(require 'racket-mode)
+
+(require 'paredit)
+(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'scheme-mode-hook 'enable-paredit-mode)
+
+(require 'clojure-mode)
+(require 'cider)
+
+(add-hook 'clojure-mode-hook 'lsp)
+(add-hook 'clojurescript-mode-hook 'lsp)
+(add-hook 'clojurec-mode-hook 'lsp)
 
 (require 'calfw)
 (require 'calfw-cal)

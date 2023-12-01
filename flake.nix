@@ -66,6 +66,13 @@
           calfw
           calfw-cal
           calfw-org
+
+          sicp
+          racket-mode
+          paredit
+
+          clojure-mode
+          cider
         ])));
 
       homeConfigurations = {

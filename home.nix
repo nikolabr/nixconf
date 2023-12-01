@@ -402,6 +402,7 @@
     stm32cubemx
     stlink-gui
     bear
+    sbcl
 
     # C/C++
     clang-tools
@@ -427,6 +428,14 @@
 
     # Python
     python3
+
+    # Racket
+    racket
+
+    # Clojure
+    clojure
+    clojure-lsp
+    leiningen
 
     # Embedded
     gcc-arm-embedded
