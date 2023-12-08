@@ -85,7 +85,7 @@
       ];
 
       modules.left = "xworkspaces xwindow";
-      modules.right = "battery pulseaudio xkeyboard cpu date";
+      modules.right = "battery pulseaudio xkeyboard network cpu date";
 
       cursor.click = "pointer";
       cursor.scroll = "ns-resize";
@@ -98,6 +98,14 @@
 
       format.margin = "8pt";
       tray.spacing = "16pt";
+    };
+
+    "module/network" = {
+      type = "internal/network";
+
+      interface = "wlp4s0";
+      interface-type = "wireless";
+      label.connected.text = "%essid% %local_ip%";
     };
 
     "module/xworkspaces" = {
@@ -174,7 +182,7 @@
 
       label.indicator.padding = 2;
       label.indicator.margin = 1;
-      label.indpicator.foreground = "\${colors.background}";
+      label.indicator.foreground = "\${colors.background}";
       label.indicator.background = "\${colors.secondary}";
     };
 
@@ -189,7 +197,7 @@
       adapter = "ACAD";
 
       label.charging = "Charging %percentage%%";
-      label.discharging = "Discharging %percentage%% %time%";
+      label.discharging = "Discharging %percentage%% %time% %consumption%";
       label.full = "Fully charged";
       label.low = "BATTERY LOW";
     };
@@ -402,7 +410,6 @@
     stm32cubemx
     stlink-gui
     bear
-    sbcl
 
     # C/C++
     clang-tools
@@ -429,6 +436,10 @@
     # Python
     python3
 
+    # Lisp
+    sbcl
+    lispPackages.cl-ppcre
+
     # Racket
     racket
 
@@ -440,6 +451,8 @@
     # Embedded
     gcc-arm-embedded
     qemu_full
+
+    jflap
 
     usbutils
 
