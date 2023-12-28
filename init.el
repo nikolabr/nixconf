@@ -11,8 +11,18 @@
 
 (setq diary-file "~/diary")
 
+(setq Info-directory-list (append Info-default-directory-list Info-directory-list))
+
+(add-hook 'after-make-frame-functions
+	  (lambda (frame)
+	    (set-fontset-font "fontset-startup" 'kana (font-spec :family "HanaMinA") frame t)
+	    (set-fontset-font "fontset-startup" 'han (font-spec :family "HanaMinA") frame t)
+	    ))
+
+
+
 (setq ispell-program-name "aspell")
-(setq ispell-dictionary "slovenian")
+(setq ispell-dictionary "sl")
 
 (add-hook 'org-mode-hook
 	  (lambda ()
@@ -66,10 +76,13 @@
 
 (require 'rust-mode)
 
+(require 'lsp-pyright)
+
 (add-hook 'c-mode-hook 'lsp)
 (add-hook 'c++-mode-hook 'lsp)
 (add-hook 'rust-mode-hook #'lsp)
 (add-hook 'js-mode-hook 'lsp)
+(add-hook 'python-mode-hook 'lsp)
 
 (require 'yasnippet)
 (yas-global-mode)
@@ -134,6 +147,24 @@
 (add-hook 'clojure-mode-hook 'lsp)
 (add-hook 'clojurescript-mode-hook 'lsp)
 (add-hook 'clojurec-mode-hook 'lsp)
+
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
+;; Use pdf-tools to open PDF files
+(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+      TeX-source-correlate-start-server t)
+
+;; Update PDF buffers after successful LaTeX runs
+(add-hook 'TeX-after-compilation-finished-functions
+          #'TeX-revert-document-buffer)
+
+(require 'nov)
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+
+(require 'weblio)
+(global-set-key (kbd "C-c C-j") 'weblio-find-region)
 
 (require 'calfw)
 (require 'calfw-cal)

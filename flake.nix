@@ -59,6 +59,8 @@
 
           magit
 
+          auctex
+          
           mozc
           slime
           pdf-tools
@@ -67,12 +69,17 @@
           calfw-cal
           calfw-org
 
+          lsp-pyright
+
           sicp
           racket-mode
           paredit
 
           clojure-mode
           cider
+
+          weblio
+          nov
         ])));
 
       homeConfigurations = {

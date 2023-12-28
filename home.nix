@@ -85,7 +85,7 @@
       ];
 
       modules.left = "xworkspaces xwindow";
-      modules.right = "battery pulseaudio xkeyboard network cpu date";
+      modules.right = "battery pulseaudio xkeyboard network cpu tray date";
 
       cursor.click = "pointer";
       cursor.scroll = "ns-resize";
@@ -95,9 +95,6 @@
 
     "module/systray" = {
       type = "internal/tray";
-
-      format.margin = "8pt";
-      tray.spacing = "16pt";
     };
 
     "module/network" = {
@@ -173,6 +170,13 @@
       label.foreground = "\${colors.primary}";
     };
 
+    "module/tray" = {
+      type = "internal/tray";
+
+      format-margin = "8px";
+      tray-spacing = "8px";
+    };
+
     "module/xkeyboard" = {
       type = "internal/xkeyboard";
       blacklist = [ "num lock" ];
@@ -208,6 +212,7 @@
   programs.rofi.enable = true;
   programs.rofi.theme = "Arc-Dark";
   programs.rofi.font = "Noto Sans Mono 12";
+  programs.rofi.terminal = "alacritty";
 
   xsession.enable = true;
   xsession.scriptPath = ".hm-xsession";
@@ -377,12 +382,14 @@
     neofetch
     anki
     gucharmap
+    sxiv
 
     # Terminal utils
     maim
     p7zip
     aria2
     time
+    unzip
 
     # PDF/Office
     libreoffice
@@ -391,8 +398,7 @@
 
     # Dicts
     # Slovenian
-    aspell
-    aspellDicts.sl
+    (aspellWithDicts (d: [ d.en d.sl ]))
 
     # Xorg
     xclip
@@ -404,12 +410,16 @@
     font-awesome
     noto-fonts
     noto-fonts-cjk
+    hanazono
 
     # Dev
     nixfmt
     stm32cubemx
     stlink-gui
     bear
+
+    # Tex
+    texlive.combined.scheme-full 
 
     # C/C++
     clang-tools
@@ -434,7 +444,20 @@
     cargo-generate
 
     # Python
-    python3
+    (python3.withPackages(ps:
+      [
+        python311Packages.pylatexenc
+        python311Packages.python-lsp-server
+        python311Packages.flake8
+        python311Packages.jedi
+      ]
+    ))
+    nodePackages_latest.pyright
+
+    # JS
+    nodejs
+    nodePackages.typescript
+    nodePackages.typescript-language-server
 
     # Lisp
     sbcl
@@ -451,10 +474,12 @@
     # Embedded
     gcc-arm-embedded
     qemu_full
-
+    
     jflap
 
     usbutils
+
+    simplescreenrecorder
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
