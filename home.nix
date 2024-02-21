@@ -16,7 +16,12 @@
   # home.stateVersion = "23.05"; # Please read the comment before changing.
 
   programs.bash.enable = true;
+  programs.bash.bashrcExtra = "eval \"\$(direnv hook bash)\"";
 
+  home.sessionPath = [
+    "$HOME/.npm-global/bin"
+  ];
+  
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     colors = {
@@ -208,6 +213,15 @@
   };
 
   services.syncthing = { enable = true; };
+  services.lorri = {
+    enable = true;
+  };
+
+  # Tweak for 23.05, hopefully will be fixed in unstable
+  systemd.user.services.lorri.serviceConfig = {
+    ProtectSystem = pkgs.lib.mkForce "full";
+    ProtectHome = pkgs.lib.mkForce false;
+  };
 
   programs.rofi.enable = true;
   programs.rofi.theme = "Arc-Dark";
@@ -371,7 +385,7 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-    hello
+    direnv
 
     # Graphical browsers / Clients
     firefox-esr
@@ -383,13 +397,18 @@
     anki
     gucharmap
     sxiv
+    ghidra-bin
+    gimp
 
     # Terminal utils
     maim
     p7zip
+    zip
     aria2
     time
     unzip
+    flashrom
+    tree
 
     # PDF/Office
     libreoffice
@@ -418,16 +437,10 @@
     stlink-gui
     bear
 
+    clang-tools
+
     # Tex
     texlive.combined.scheme-full 
-
-    # C/C++
-    clang-tools
-    gcc
-    gnumake
-    cmake
-    openocd
-    valgrind
 
     jetbrains.clion
 
@@ -445,19 +458,17 @@
 
     # Python
     (python3.withPackages(ps:
-      [
-        python311Packages.pylatexenc
-        python311Packages.python-lsp-server
-        python311Packages.flake8
-        python311Packages.jedi
+      with python311Packages; [
+        pylatexenc
+        python-lsp-server
+        flake8
+        jedi
+        jinja2
+        numpy
+        scipy
       ]
     ))
     nodePackages_latest.pyright
-
-    # JS
-    nodejs
-    nodePackages.typescript
-    nodePackages.typescript-language-server
 
     # Lisp
     sbcl
@@ -471,6 +482,10 @@
     clojure-lsp
     leiningen
 
+    # Elm
+    elmPackages.elm
+    elmPackages.elm-language-server
+
     # Embedded
     gcc-arm-embedded
     qemu_full
@@ -481,6 +496,15 @@
 
     simplescreenrecorder
 
+    (rstudioWrapper.override{
+      packages = with rPackages; [
+        readxl
+        dplyr
+        ggplot2
+        treemapify
+      ];
+    })
+    
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of

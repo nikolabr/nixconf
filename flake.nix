@@ -39,6 +39,7 @@
         (with epkgs; [
           color-theme-sanityinc-tomorrow
 
+          direnv
           nix-mode
           rust-mode
 
@@ -51,7 +52,6 @@
 
           yasnippet
           which-key
-          projectile
           hydra
           flycheck
           company
@@ -77,6 +77,8 @@
 
           clojure-mode
           cider
+
+          elm-mode
 
           weblio
           nov

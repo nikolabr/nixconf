@@ -19,8 +19,6 @@
 	    (set-fontset-font "fontset-startup" 'han (font-spec :family "HanaMinA") frame t)
 	    ))
 
-
-
 (setq ispell-program-name "aspell")
 (setq ispell-dictionary "sl")
 
@@ -90,13 +88,10 @@
 (require 'which-key)
 (which-key-mode)
 
-(require 'projectile)
-(projectile-mode)
+;; (require 'projectile)
+;; (projectile-mode)
 
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
-;; Automated project discovery
-(setq projectile-project-search-path '("~/Dev/"))
+;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; Disable the stm32 extension for now 
 ;; (add-hook 'after-init-hook (lambda ()
@@ -108,9 +103,13 @@
 
 (require 'flycheck)
 
+(require 'direnv)
+(direnv-mode)
+
 (require 'company)
 (setq company-idle-delay 0.0)
 (setq company-minimum-prefix-length 1)
+(add-to-list 'company-backends 'company-nixos-options)
 
 (require 'avy)
 
@@ -159,6 +158,10 @@
 ;; Update PDF buffers after successful LaTeX runs
 (add-hook 'TeX-after-compilation-finished-functions
           #'TeX-revert-document-buffer)
+
+(require 'elm-mode)
+(setq elm-mode-hook '(elm-indent-simple-mode))
+(add-hook 'elm-mode-hook 'lsp)
 
 (require 'nov)
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
