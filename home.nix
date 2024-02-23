@@ -410,6 +410,8 @@
     flashrom
     tree
 
+    clang-tools
+
     # PDF/Office
     libreoffice
     ghostscript
@@ -436,8 +438,6 @@
     stm32cubemx
     stlink-gui
     bear
-
-    clang-tools
 
     # Tex
     texlive.combined.scheme-full 
