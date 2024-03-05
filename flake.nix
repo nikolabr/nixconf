@@ -99,7 +99,6 @@
 
               home.file.".emacs".source = ./init.el;
             }
-            { home.stateVersion = "23.05"; }
           ];
           inherit pkgs;
         };
