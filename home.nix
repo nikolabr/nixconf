@@ -399,6 +399,8 @@
     sxiv
     ghidra-bin
     gimp
+    komikku
+    audacity
 
     # Terminal utils
     maim
@@ -440,7 +442,10 @@
     bear
 
     # Tex
-    texlive.combined.scheme-full 
+    texlive.combined.scheme-full
+
+    # Octave
+    octaveFull
 
     jetbrains.clion
 
