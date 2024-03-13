@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs,  ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "nikola";
-  home.homeDirectory = "/home/nikola";
+  # home.username = "nikola";
+  # home.homeDirectory = "/home/nikola";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -51,6 +51,9 @@
       };
     };
     font.size = 8.0;
+    window = {
+      opacity = 0.85;
+    };
   };
 
   services.polybar.enable = true;
@@ -58,7 +61,7 @@
   services.polybar.script = "polybar top &";
   services.polybar.settings = {
     "colors" = {
-      background = "#24292e";
+      background = "#D924292e";
       background-alt = "#373B41";
       foreground = "#C5C8C6";
       primary = "#81a2be";
@@ -80,6 +83,9 @@
       padding.right = 1;
 
       module.margin = 1;
+
+      radius = 5;
+      border.size = 5;
 
       separator = "|";
       separator-foreground = "\${colors.disabled}";
@@ -212,6 +218,10 @@
     };
   };
 
+  services.picom = {
+    enable = true;
+  };
+
   services.syncthing = { enable = true; };
   services.lorri = {
     enable = true;
@@ -233,7 +243,9 @@
   xsession.windowManager.bspwm = {
     enable = true;
     monitors = { eDP-1 = [ "1" "2" "3" "4" "5" "6" "7" "8" ]; };
-    settings = { window_gap = 0; };
+    settings = {
+      window_gap = 5;
+    };
   };
 
   programs.git = {
@@ -243,6 +255,52 @@
 
     userEmail = "nikolabrk@protonmail.com";
     userName = "nikolabr";
+  };
+
+
+  accounts.email.accounts = {
+    "nb91605" = {
+      primary = true;
+      userName = "nb91605@student.uni-lj.si";
+      address = "nb91605@student.uni-lj.si";
+      realName = "Nikola Brković";
+      flavor = "outlook.office365.com";
+      mu.enable = true;
+      thunderbird = {
+        enable = true;
+      };
+      offlineimap = {
+        enable = true;
+        extraConfig.remote = {
+          auth_mechanisms = "XOAUTH2";
+          # Thunderbird ID
+          oauth2_client_id = "9e5f94bc-e8a4-4e73-b8be-63364c29d753";
+
+          # TODO: Find solution for secrets
+          oauth2_access_token = "secret";
+        };
+      };
+      imap = {
+        host = "outlook.office365.com";
+      };
+    };
+  };
+
+  programs.thunderbird = {
+    enable = true;
+    profiles = {
+      "default" = {
+        isDefault = true;
+      };
+    };
+  };
+
+  programs.mu = {
+    enable = true;
+  };
+
+  programs.offlineimap = {
+    enable = true;
   };
 
   services.sxhkd = {
@@ -379,6 +437,16 @@
     ];
   };
 
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;
+    client.enable = true;
+
+    package = inputs.self.packages.x86_64-linux.custom-emacs;
+  };
+
+  home.file.".emacs".source = ./init.el;
+  
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -389,7 +457,6 @@
 
     # Graphical browsers / Clients
     firefox-esr
-    thunderbird
 
     # Graphical utils
     pavucontrol
@@ -443,6 +510,8 @@
 
     # Tex
     texlive.combined.scheme-full
+
+    powershell
 
     # Octave
     octaveFull

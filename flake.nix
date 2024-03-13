@@ -20,7 +20,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-overlay, rust-overlay }:
+  outputs = { self, nixpkgs, home-manager, emacs-overlay, rust-overlay, ... }@inputs:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
@@ -28,79 +28,27 @@
           [ emacs-overlay.overlays.default rust-overlay.overlays.default ];
         config.allowUnfree = true;
       };
-
-      emacsWithPackages =
-        (pkgs.emacsPackagesFor pkgs.emacs-gtk).emacsWithPackages;
-
+      
     in {
-      packages.x86_64-linux.default = home-manager.defaultPackage.x86_64-linux;
+      packages.x86_64-linux.custom-emacs = (import ./emacs.nix { inherit pkgs; });
+      nixosConfigurations = {
+        thinkbook = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
-      packages.x86_64-linux.custom-emacs = (emacsWithPackages (epkgs:
-        (with epkgs; [
-          color-theme-sanityinc-tomorrow
-
-          direnv
-          nix-mode
-          rust-mode
-
-          helm
-          helm-xref
-
-          lsp-mode
-          helm-lsp
-          dap-mode
-
-          yasnippet
-          which-key
-          hydra
-          flycheck
-          company
-          avy
-
-          magit
-
-          auctex
-          
-          mozc
-          slime
-          pdf-tools
-
-          calfw
-          calfw-cal
-          calfw-org
-
-          lsp-pyright
-
-          sicp
-          racket-mode
-          paredit
-
-          clojure-mode
-          cider
-
-          elm-mode
-
-          weblio
-          nov
-        ])));
-
-      homeConfigurations = {
-        "nikola" = home-manager.lib.homeManagerConfiguration {
           modules = [
-            ./home.nix
-            {
-              services.emacs = {
-                enable = true;
-                defaultEditor = true;
-                client.enable = true;
+            ./nixos/configuration.nix
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.nikola = import ./home.nix;
 
-                package = self.packages.x86_64-linux.custom-emacs;
+              home-manager.extraSpecialArgs = {
+                inherit inputs pkgs;
               };
-
-              home.file.".emacs".source = ./init.el;
             }
           ];
-          inherit pkgs;
+          
+          specialArgs = { inherit inputs; };
         };
       };
     };
