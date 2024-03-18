@@ -15,14 +15,12 @@
 
   fileSystems."/" =
     {
-      # device = "/dev/disk/by-uuid/c71f66b0-4308-4afa-bd79-0746fa684118";
       device = "/dev/VolGroup-root/cryptroot";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
     {
-      # device = "/dev/disk/by-uuid/8A3E-271E";
       device = "/dev/nvme0n1p1";
       fsType = "vfat";
     };
@@ -30,7 +28,6 @@
   swapDevices =
     [
       {
-      # device = "/dev/disk/by-uuid/f80cb3b1-9df0-4452-b343-c2704929ff43"; }
         device = "/dev/VolGroup-root/cryptswap";
       }
     ];

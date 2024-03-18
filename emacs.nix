@@ -32,5 +32,7 @@ in
       elm-mode
 
       weblio nov
+
+      mu4e
   ]))
     

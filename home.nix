@@ -3,8 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  # home.username = "nikola";
-  # home.homeDirectory = "/home/nikola";
+  home.username = "nikola";
+  home.homeDirectory = "/home/nikola";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -275,9 +275,8 @@
           auth_mechanisms = "XOAUTH2";
           # Thunderbird ID
           oauth2_client_id = "9e5f94bc-e8a4-4e73-b8be-63364c29d753";
-
-          # TODO: Find solution for secrets
-          oauth2_access_token = "secret";
+          
+          oauth2_access_token = "";
         };
       };
       imap = {

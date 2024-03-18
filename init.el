@@ -169,6 +169,16 @@
 (require 'weblio)
 (global-set-key (kbd "C-c C-j") 'weblio-find-region)
 
+(setq user-full-name "Nikola Brković"
+      user-mail-address "nb91605@student.uni-lj.si")
+
+(require 'mu4e)
+
+(setq mail-user-agent 'mu4e-user-agent)
+(setq mu4e-maildir "~/Maildir/")
+(setq mu4e-update-interval 300)
+(setq mu4e-get-mail-command "offlineimap")
+
 (require 'calfw)
 (require 'calfw-cal)
 (require 'calfw-org)

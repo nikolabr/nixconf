@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [ # Include the results of the hardware scan.
@@ -162,7 +162,10 @@
   services.xserver.xkbOptions = "grp:ctrls_toggle";
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.hplip ];
+  };
 
   # Enable sound.
   sound.enable = true;
@@ -185,13 +188,8 @@
     DBs = with pkgs.dictdDBs; [ wordnet eng2jpn jpn2eng ];
   };
 
-  services.mysql.package = pkgs.mariadb;
-  services.mysql.enable = true;
-
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.hplip ];
-  };
+  # services.mysql.package = pkgs.mariadb;
+  # services.mysql.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nikola = {
@@ -224,7 +222,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
