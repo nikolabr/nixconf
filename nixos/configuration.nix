@@ -209,6 +209,7 @@
     docker-compose
     ncdu
     dict
+    direnv
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -452,7 +452,6 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-    direnv
 
     # Graphical browsers / Clients
     firefox-esr
@@ -502,6 +501,7 @@
     hanazono
 
     # Dev
+    nil
     nixfmt
     stm32cubemx
     stlink-gui
@@ -511,7 +511,7 @@
     texlive.combined.scheme-full
 
     powershell
-
+    
     # Octave
     octaveFull
 
@@ -530,17 +530,17 @@
     cargo-generate
 
     # Python
-    (python3.withPackages(ps:
-      with python311Packages; [
-        pylatexenc
-        python-lsp-server
-        flake8
-        jedi
-        jinja2
-        numpy
-        scipy
-      ]
-    ))
+    # (python3.withPackages(ps:
+    #   with python311Packages; [
+    #     pylatexenc
+    #     python-lsp-server
+    #     flake8
+    #     jedi
+    #     jinja2
+    #     numpy
+    #     scipy
+    #   ]
+    # ))
     nodePackages_latest.pyright
 
     # Lisp

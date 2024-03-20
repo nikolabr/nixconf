@@ -109,7 +109,14 @@
 (require 'company)
 (setq company-idle-delay 0.0)
 (setq company-minimum-prefix-length 1)
-(add-to-list 'company-backends 'company-nixos-options)
+;; (add-to-list 'company-backends 'company-nixos-options)
+
+(require 'nix-mode)
+(add-hook 'nix-mode-hook 'lsp-deferred)
+(setq lsp-nix-nil-formatter ["nixpkgs-fmt"]
+      lsp-nix-nil-max-mem 3500)
+
+(require 'lsp-nix)
 
 (require 'avy)
 

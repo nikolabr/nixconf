@@ -7,7 +7,9 @@ in
     (with epkgs; [
       color-theme-sanityinc-tomorrow
 
-      direnv nix-mode rust-mode
+      direnv nix-mode
+
+      rust-mode
 
       helm helm-xref
 
@@ -28,6 +30,8 @@ in
       sicp racket-mode paredit
 
       clojure-mode cider
+
+      tuareg
       
       elm-mode
 

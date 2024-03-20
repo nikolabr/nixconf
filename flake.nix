@@ -18,14 +18,18 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nil = {
+      url = "github:oxalica/nil";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-overlay, rust-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, emacs-overlay, rust-overlay, nil, ... }@inputs:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         overlays =
-          [ emacs-overlay.overlays.default rust-overlay.overlays.default ];
+          [ emacs-overlay.overlays.default rust-overlay.overlays.default nil.overlays.default ];
         config.allowUnfree = true;
       };
       
