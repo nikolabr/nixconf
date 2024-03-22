@@ -55,7 +55,7 @@
       opacity = 0.85;
     };
   };
-
+  
   services.polybar.enable = true;
   services.polybar.package = pkgs.polybar.override { pulseSupport = true; };
   services.polybar.script = "polybar top &";
@@ -501,8 +501,6 @@
     hanazono
 
     # Dev
-    nil
-    nixfmt
     stm32cubemx
     stlink-gui
     bear
@@ -513,8 +511,10 @@
     powershell
     
     # Octave
-    octaveFull
-
+    (octaveFull.withPackages (octavePackages:
+      [ octavePackages.audio octavePackages.statistics octavePackages.signal ]
+    ))
+    
     jetbrains.clion
 
     # Rust

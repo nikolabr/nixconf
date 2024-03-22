@@ -112,11 +112,10 @@
 ;; (add-to-list 'company-backends 'company-nixos-options)
 
 (require 'nix-mode)
+(require 'lsp-nix)
 (add-hook 'nix-mode-hook 'lsp-deferred)
 (setq lsp-nix-nil-formatter ["nixpkgs-fmt"]
-      lsp-nix-nil-max-mem 3500)
-
-(require 'lsp-nix)
+      lsp-nix-nil-max-mem 8000)
 
 (require 'avy)
 
